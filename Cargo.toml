@@ -6,7 +6,31 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bevy = "0.7.0"
-
 # For debugging purposes
 # bevycheck = "0.3.0"
+
+[dependencies.bevy]
+version = "0.7.0"
+default-features = false
+features = [
+    "animation",
+    "bevy_audio",
+    "filesystem_watcher", # Disable on release
+
+    # Render
+    "bevy_render",
+    "bevy_core_pipeline",
+    "bevy_sprite",
+    "bevy_text",
+    "bevy_ui",
+
+    # Windowing
+    "bevy_winit",
+    "x11",
+    # "wayland", # Enable on release
+
+    # File formats
+    "png",
+    "vorbis",
+    "wav", # Might disable later
+]
