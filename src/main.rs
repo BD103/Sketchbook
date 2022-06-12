@@ -2,5 +2,5 @@ use bevy::prelude::*;
 use sketchbook::*;
 
 fn main() {
-    App::new().add_plugin(plugin::GamePlugin).run();
+    App::new().add_plugins(plugin::SketchbookPlugins).run();
 }

@@ -1,3 +1,5 @@
-mod game;
+mod group;
+mod main;
 
-pub use self::game::GamePlugin;
+pub use self::group::SketchbookPlugins;
+pub use self::main::MainPlugin;

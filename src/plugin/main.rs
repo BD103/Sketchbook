@@ -1,11 +1,11 @@
 use crate::*;
 use bevy::prelude::*;
 
-pub struct GamePlugin;
+pub struct MainPlugin;
 
-impl Plugin for GamePlugin {
+impl Plugin for MainPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins(DefaultPlugins)
-            .add_startup_system(system::hello_world);
+            .add_startup_system(system::setup);
     }
 }
