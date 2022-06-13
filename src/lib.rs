@@ -1,4 +1,4 @@
 pub mod component;
-pub mod entity;
+mod entity_marker;
 pub mod plugin;
 pub mod system;
