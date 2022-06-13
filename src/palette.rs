@@ -5,7 +5,8 @@
 
 use bevy::prelude::*;
 
-pub struct ColorHues(Color, Color, Color, Color, Color);
+#[derive(Debug)]
+pub struct ColorHues(pub Color, pub Color, pub Color, pub Color, pub Color);
 
 /// Works around floating arithmetic being disallowed in constant functions by
 /// just inlining it, which is allowed.
@@ -20,7 +21,7 @@ macro_rules! rgb {
     };
 }
 
-const MONO: ColorHues = ColorHues(
+pub const MONO: ColorHues = ColorHues(
     rgb!(59.0, 59.0, 59.0),
     rgb!(101.0, 101.0, 101.0),
     rgb!(157.0, 157.0, 157.0),
@@ -28,7 +29,7 @@ const MONO: ColorHues = ColorHues(
     rgb!(239.0, 239.0, 239.0),
 );
 
-const BLUE: ColorHues = ColorHues(
+pub const BLUE: ColorHues = ColorHues(
     rgb!(13.0, 25.0, 70.0),
     rgb!(26.0, 51.0, 140.0),
     rgb!(68.0, 102.0, 221.0),
@@ -36,7 +37,7 @@ const BLUE: ColorHues = ColorHues(
     rgb!(215.0, 222.0, 248.0),
 );
 
-const PINK: ColorHues = ColorHues(
+pub const PINK: ColorHues = ColorHues(
     rgb!(68.0, 10.0, 43.0),
     rgb!(171.0, 26.0, 108.0),
     rgb!(224.0, 50.0, 148.0),
@@ -44,7 +45,7 @@ const PINK: ColorHues = ColorHues(
     rgb!(246.0, 197.0, 225.0),
 );
 
-const ORANGE: ColorHues = ColorHues(
+pub const ORANGE: ColorHues = ColorHues(
     rgb!(100.0, 55.0, 8.0),
     rgb!(200.0, 111.0, 15.0),
     rgb!(241.0, 154.0, 62.0),
