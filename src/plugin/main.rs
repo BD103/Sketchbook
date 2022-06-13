@@ -5,6 +5,7 @@ pub struct MainPlugin;
 
 impl Plugin for MainPlugin {
     fn build(&self, app: &mut App) {
-        app.add_startup_system(system::setup);
+        app.insert_resource(ClearColor(palette::MONO.0))
+            .add_startup_system(system::setup);
     }
 }
