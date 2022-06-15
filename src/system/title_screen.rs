@@ -10,7 +10,7 @@ pub fn spawn_title_screen(mut commands: Commands, asset_server: Res<AssetServer>
             align_items: AlignItems::Center,
             ..default()
         },
-        color: palette::PINK.2.into(),
+        color: palette::MONO.1.into(),
         ..default()
     }).with_children(|parent| {
         parent.spawn_bundle(TextBundle {
@@ -31,5 +31,26 @@ pub fn spawn_title_screen(mut commands: Commands, asset_server: Res<AssetServer>
 pub fn despawn_title_screen(mut commands: Commands, query: Query<Entity, With<entity_marker::TitleUIElement>>) {
     for ui_element in query.iter() {
         commands.entity(ui_element).despawn_recursive();
+    }
+}
+
+// TODO: Rewrite hacky code
+pub fn update_title_screen(mut interaction_query: Query<(&Interaction, &mut UiColor, &Children), (Changed<Interaction>, With<Button>)>, mut text_query: Query<&mut Text>) {
+    for (interaction, mut color, children) in interaction_query.iter_mut() {
+        let mut text = text_query.get_mut(children[0]).unwrap();
+        match *interaction {
+            Interaction::Clicked => {
+                *color = palette::MONO.4.into();
+                text.sections[0].style.color = palette::MONO.0.into();
+            },
+            Interaction::Hovered => {
+                *color = palette::MONO.2.into();
+                text.sections[0].style.color = palette::MONO.4.into();
+            },
+            Interaction::None => {
+                *color = palette::MONO.1.into();
+                text.sections[0].style.color = palette::MONO.4.into();
+            },
+        }
     }
 }
