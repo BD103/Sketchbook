@@ -12,11 +12,11 @@ impl PluginGroup for SketchbookPlugins {
     fn build(&mut self, group: &mut PluginGroupBuilder) {
         DefaultPlugins.build(group);
 
-        group.add(self::plugins::MainPlugin);
+        group.add(plugins::MainPlugin);
 
         screens::ScreenPlugins.build(group);
 
         #[cfg(debug_assertions)]
-        group.add(self::plugins::DevPlugin);
+        group.add(plugins::DevPlugin);
     }
 }

@@ -1,3 +1,5 @@
+#![cfg_attr(debug_assertions, allow(dead_code))]
+
 /// Represents the current screens being displayed by the game.
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Copy)]
 pub enum GameState {

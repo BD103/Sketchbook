@@ -30,7 +30,7 @@ pub fn spawn_title_screen(mut commands: Commands, asset_server: Res<AssetServer>
                 text: Text::with_section(
                     "Button",
                     TextStyle {
-                        font: asset_server.load("font/firasans_bold.ttf"),
+                        font: asset_server.load("font/fira_sans_bold.ttf"),
                         font_size: 40.0,
                         color: palette::MONO.4,
                     },
