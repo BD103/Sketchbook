@@ -1,6 +1,7 @@
 mod dev;
 mod level_screen;
 mod main;
+mod title_screen;
 
 use bevy::app::PluginGroupBuilder;
 use bevy::prelude::*;
@@ -12,6 +13,7 @@ impl PluginGroup for SketchbookPlugins {
         group.add(self::main::MainPlugin);
         DefaultPlugins.build(group);
 
+        group.add(self::title_screen::TitleScreenPlugin);
         group.add(self::level_screen::LevelScreenPlugin);
 
         #[cfg(debug_assertions)]
