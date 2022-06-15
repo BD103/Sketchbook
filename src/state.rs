@@ -24,7 +24,7 @@ pub enum LevelState {
 impl LevelState {
     /// Returns the next level. If the current level is the last, returns
     /// [`None`].
-    fn next_level(&self) -> Option<Self> {
+    pub fn next_level(&self) -> Option<Self> {
         use LevelState::*;
 
         match self {
