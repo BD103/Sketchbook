@@ -1,5 +1,4 @@
-use bevy::input::system::exit_on_esc_system;
-use bevy::prelude::*;
+use bevy::{input::system::exit_on_esc_system, prelude::*};
 use bevy_inspector_egui::WorldInspectorPlugin;
 
 pub struct DevPlugin;

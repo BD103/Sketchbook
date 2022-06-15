@@ -1,8 +1,22 @@
-pub mod component;
-pub mod entity_marker;
-pub mod palette;
-pub mod plugin;
-mod state;
-pub mod system;
+mod entity_markers;
+mod palette;
+mod plugins;
+mod screens;
+mod states;
 
-pub use self::state::*;
+use bevy::{app::PluginGroupBuilder, prelude::*};
+
+pub struct SketchbookPlugins;
+
+impl PluginGroup for SketchbookPlugins {
+    fn build(&mut self, group: &mut PluginGroupBuilder) {
+        DefaultPlugins.build(group);
+
+        group.add(self::plugins::MainPlugin);
+
+        screens::ScreenPlugins.build(group);
+
+        #[cfg(debug_assertions)]
+        group.add(self::plugins::DevPlugin);
+    }
+}

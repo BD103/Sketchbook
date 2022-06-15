@@ -1,6 +1,6 @@
 use bevy::prelude::*;
-use sketchbook::*;
+use sketchbook::SketchbookPlugins;
 
 fn main() {
-    App::new().add_plugins(plugin::SketchbookPlugins).run();
+    App::new().add_plugins(SketchbookPlugins).run();
 }
