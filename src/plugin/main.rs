@@ -11,6 +11,7 @@ impl Plugin for MainPlugin {
             ..default()
         })
         .insert_resource(ClearColor(palette::MONO.0))
-        .add_startup_system(system::setup);
+        .add_startup_system(system::setup)
+        .add_startup_system(system::spawn_player);
     }
 }
