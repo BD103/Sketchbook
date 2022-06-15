@@ -11,3 +11,9 @@ pub fn spawn_player(mut commands: Commands, asset_server: Res<AssetServer>) {
         .insert(entity_marker::Player)
         .insert(Name::new("Player"));
 }
+
+pub fn despawn_player(mut commands: Commands, query: Query<Entity, With<entity_marker::Player>>) {
+    for player in query.iter() {
+        commands.entity(player).despawn();
+    }
+}

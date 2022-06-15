@@ -5,7 +5,8 @@ pub struct MainPlugin;
 
 impl Plugin for MainPlugin {
     fn build(&self, app: &mut App) {
-        app.add_state(GameState::Title)
+        // TODO: Set initial game-state to GameState::Title
+        app.add_state(GameState::Level)
             .insert_resource(WindowDescriptor {
                 title: "Sketchbook".to_string(),
                 resizable: false,
