@@ -5,4 +5,4 @@ pub mod plugin;
 mod state;
 pub mod system;
 
-pub use self::state::GameState;
+pub use self::state::*;
