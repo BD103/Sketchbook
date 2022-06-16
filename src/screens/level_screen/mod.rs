@@ -27,7 +27,7 @@ pub fn spawn_player(mut commands: Commands, asset_server: Res<AssetServer>) {
 
 pub fn despawn_player(mut commands: Commands, query: Query<Entity, With<Player>>) {
     for player in query.iter() {
-        // If the player ever gets children, make recursive
+        // If the player ever gets children, make recursive.
         commands.entity(player).despawn();
     }
 }
