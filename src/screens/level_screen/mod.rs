@@ -1,4 +1,8 @@
-use crate::{entity_markers, states::GameState};
+mod player;
+
+pub use self::player::Player;
+
+use crate::states::GameState;
 use bevy::prelude::*;
 
 pub struct LevelScreenPlugin;
@@ -17,11 +21,11 @@ pub fn spawn_player(mut commands: Commands, asset_server: Res<AssetServer>) {
             transform: Transform::from_xyz(100.0, 0.0, 0.0).with_scale(Vec3::new(5.0, 5.0, 0.0)),
             ..default()
         })
-        .insert(entity_markers::Player)
+        .insert(Player)
         .insert(Name::new("Player"));
 }
 
-pub fn despawn_player(mut commands: Commands, query: Query<Entity, With<entity_markers::Player>>) {
+pub fn despawn_player(mut commands: Commands, query: Query<Entity, With<Player>>) {
     for player in query.iter() {
         // If the player ever gets children, make recursive
         commands.entity(player).despawn();

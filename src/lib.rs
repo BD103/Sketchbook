@@ -1,4 +1,3 @@
-mod entity_markers;
 mod palette;
 mod plugins;
 mod screens;
