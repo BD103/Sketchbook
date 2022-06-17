@@ -1,7 +1,34 @@
 use bevy::prelude::*;
+use bevy_inspector_egui::Inspectable;
 
-#[derive(Component)]
-pub struct Player;
+#[derive(Component, Inspectable, Debug)]
+pub struct Player {
+    gravity: Gravity,
+    time_since_change: Option<f64>,
+}
+
+impl Default for Player {
+    fn default() -> Self {
+        Player {
+            gravity: Gravity::default(),
+            time_since_change: None,
+        }
+    }
+}
+
+#[derive(Inspectable, Debug)]
+pub enum Gravity {
+    Up,
+    Down,
+    Left,
+    Right,
+}
+
+impl Default for Gravity {
+    fn default() -> Self {
+        Gravity::Down
+    }
+}
 
 pub fn spawn_player(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands
@@ -10,7 +37,7 @@ pub fn spawn_player(mut commands: Commands, asset_server: Res<AssetServer>) {
             transform: Transform::from_xyz(100.0, 0.0, 0.0).with_scale(Vec3::new(5.0, 5.0, 0.0)),
             ..default()
         })
-        .insert(Player)
+        .insert(Player::default())
         .insert(Name::new("Player"));
 }
 
@@ -22,11 +49,11 @@ pub fn despawn_player(mut commands: Commands, query: Query<Entity, With<Player>>
 }
 
 pub fn update_player(
-    mut player_query: Query<(&Player, &mut Transform)>,
+    mut player_query: Query<(&mut Player, &mut Transform)>,
     keyboard: Res<Input<KeyCode>>,
     time: Res<Time>,
 ) {
-    let (player, mut transform) = player_query.single_mut();
+    let (mut player, mut transform) = player_query.single_mut();
 
     if keyboard.pressed(KeyCode::W) {
         transform.translation.y += 100.0 * time.delta_seconds();
