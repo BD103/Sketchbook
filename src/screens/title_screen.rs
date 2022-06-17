@@ -1,6 +1,5 @@
 use crate::{palette, states::GameState};
-use bevy::prelude::*;
-use bevy::ecs::schedule::StateError;
+use bevy::{ecs::schedule::StateError, prelude::*};
 
 pub struct TitleScreenPlugin;
 
@@ -77,8 +76,14 @@ pub fn update_title_screen(
                 *color = palette::BLUE.4.into();
 
                 match state.set(GameState::Level) {
-                    Ok(()) | Err(StateError::AlreadyInState) | Err(StateError::StateAlreadyQueued) => {},
-                    Err(_) => panic!("Error switching state to GameState::Level. File: '{}', Line: '{}'.", file!(), line!()),
+                    Ok(())
+                    | Err(StateError::AlreadyInState)
+                    | Err(StateError::StateAlreadyQueued) => {}
+                    Err(_) => panic!(
+                        "Error switching state to GameState::Level. File: '{}', Line: '{}'.",
+                        file!(),
+                        line!()
+                    ),
                 }
             }
             Interaction::Hovered => {
