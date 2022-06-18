@@ -4,14 +4,14 @@ use bevy_inspector_egui::Inspectable;
 #[derive(Component, Inspectable, Debug)]
 pub struct Player {
     gravity: Gravity,
-    time_since_change: Option<f64>,
+    gravity_change: f64,
 }
 
 impl Default for Player {
     fn default() -> Self {
         Player {
             gravity: Gravity::default(),
-            time_since_change: None,
+            gravity_change: 0.0,
         }
     }
 }
@@ -22,6 +22,14 @@ pub enum Gravity {
     Down,
     Left,
     Right,
+}
+
+impl Gravity {
+    pub fn rotation(&self) -> f32 {
+        match self {
+            _ => 0.0,
+        }
+    }
 }
 
 impl Default for Gravity {
@@ -54,6 +62,9 @@ pub fn update_player(
     time: Res<Time>,
 ) {
     let (mut player, mut transform) = player_query.single_mut();
+
+    // Spinnnnn
+    transform.rotate(Quat::from_rotation_z(1.0 * time.delta_seconds()));
 
     if keyboard.pressed(KeyCode::W) {
         transform.translation.y += 100.0 * time.delta_seconds();
