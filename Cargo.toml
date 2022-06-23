@@ -31,5 +31,6 @@ features = [
     # File formats
     "png",
     "vorbis",
+    "mp3", # For demos, disable later
     "wav", # Might disable later
 ]
