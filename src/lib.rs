@@ -1,5 +1,6 @@
 mod palette;
 mod plugins;
+mod puzzle;
 mod screens;
 mod states;
 

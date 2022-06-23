@@ -1,4 +1,4 @@
-use crate::screens::level_screen::{Gravity, Player};
+use crate::puzzle::{Gravity, Player};
 use bevy::{input::system::exit_on_esc_system, prelude::*};
 use bevy_inspector_egui::{RegisterInspectable, WorldInspectorPlugin};
 

@@ -1,50 +1,36 @@
+use super::Gravity;
 use bevy::prelude::*;
 use bevy_inspector_egui::Inspectable;
-
-const FULL_ROTATION: f32 = 2.0 * std::f32::consts::PI;
 
 #[derive(Component, Inspectable, Debug)]
 pub struct Player {
     /// The current gravity affecting the player.
     pub gravity: Gravity,
 
+    /// The previous gravity type
+    pub gravity_last: Gravity,
+
     /// When the gravity was last changed.
     pub gravity_change_time: f64,
+}
+
+impl Player {
+    pub fn change_gravity(&mut self, gravity: Gravity, current_time: f64) {
+        if self.gravity != gravity {
+            self.gravity_last = self.gravity;
+            self.gravity = gravity;
+            self.gravity_change_time = current_time;
+        }
+    }
 }
 
 impl Default for Player {
     fn default() -> Self {
         Player {
             gravity: Gravity::default(),
+            gravity_last: Gravity::default(),
             gravity_change_time: 0.0,
         }
-    }
-}
-
-#[derive(Inspectable, Debug)]
-pub enum Gravity {
-    Up,
-    Down,
-    Left,
-    Right,
-}
-
-impl Gravity {
-    pub fn rotation(&self) -> f32 {
-        use Gravity::*;
-
-        match self {
-            Down=> 0.0,
-            Right => FULL_ROTATION * 0.25,
-            Up => FULL_ROTATION * 0.5,
-            Left => FULL_ROTATION * 0.75,
-        }
-    }
-}
-
-impl Default for Gravity {
-    fn default() -> Self {
-        Gravity::Down
     }
 }
 
@@ -73,6 +59,7 @@ pub fn update_player_input(
 ) {
     let (mut player, mut transform) = player_query.single_mut();
 
+    // Move with WASD
     if keyboard.pressed(KeyCode::W) {
         transform.translation.y += 100.0 * time.delta_seconds();
     }
@@ -89,39 +76,24 @@ pub fn update_player_input(
         transform.translation.x += 100.0 * time.delta_seconds();
     }
 
+    // Change gravity with IJKL
     if keyboard.pressed(KeyCode::I) {
-        player.gravity = Gravity::Up;
-        player.gravity_change_time = time.seconds_since_startup();
+        player.change_gravity(Gravity::Up, time.seconds_since_startup());
     }
 
     if keyboard.pressed(KeyCode::K) {
-        player.gravity = Gravity::Down;
-        player.gravity_change_time = time.seconds_since_startup();
+        player.change_gravity(Gravity::Down, time.seconds_since_startup());
     }
 
     if keyboard.pressed(KeyCode::J) {
-        player.gravity = Gravity::Left;
-        player.gravity_change_time = time.seconds_since_startup();
+        player.change_gravity(Gravity::Left, time.seconds_since_startup());
     }
 
     if keyboard.pressed(KeyCode::L) {
-        player.gravity = Gravity::Right;
-        player.gravity_change_time = time.seconds_since_startup();
+        player.change_gravity(Gravity::Right, time.seconds_since_startup());
     }
 }
 
 pub fn rotate_player(mut query: Query<(&Player, &mut Transform)>, time: Res<Time>) {
-    let (player, mut transform) = query.single_mut();
-
-    // Spinnnn
-    // transform.rotate(Quat::from_rotation_z(1.0 * time.delta_seconds()));
-
-    // Rotate to given gravity
-    //transform.rotation = Quat::from_rotation_z(player.gravity.rotation());
-
-    //transform.rotation = transform.rotation.lerp(Quat::from_rotation_z(player.gravity.rotation()), (time.seconds_since_startup() - player.gravity_change_time) as f32);
-
-    let time_diff = (time.seconds_since_startup() - player.gravity_change_time).min(1.0) as f32;
-
-    transform.rotation = Quat::from_rotation_z(transform.rotation.z.abs() + time_diff * (player.gravity.rotation() - transform.rotation.z.abs()));
+    // let (player, mut transform) = query.single_mut();
 }
